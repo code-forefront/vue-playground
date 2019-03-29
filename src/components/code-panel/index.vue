@@ -2,17 +2,11 @@
   <section class="code">
     <h1>Composant VueJS</h1>
     <h2>template</h2>
-    <no-ssr>
       <codemirror v-model="template" :options="cmOptions" />
-    </no-ssr>
     <h2>script</h2>
-    <no-ssr>
       <codemirror v-model="script" :options="cmOptions2" />
-    </no-ssr>
     <h2>CSS</h2>
-    <no-ssr>
       <codemirror v-model="style" :options="cmOptions3" />
-    </no-ssr>
     <p>
       <button class="btn fourth" @click="register">
         Load
@@ -22,12 +16,15 @@
 </template>
 
 <script>
-import script1 from './examples/script1.tpl'
-import template1 from './examples/template1.tpl'
-import style1 from './examples/style1.tpl'
+import script1 from 'raw-loader!././examples/script1.tpl'
+import template1 from 'raw-loader!././examples/template1.tpl'
+import style1 from 'raw-loader!././examples/style1.tpl'
 import microstore from '@/microstore'
 
 export default {
+  components: {
+    codemirror: () => import('@/plugins/codemirror.js')
+  },
   data() {
     return {
       cmOptions: {
