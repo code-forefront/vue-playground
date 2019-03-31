@@ -1,24 +1,17 @@
 <template>
   <div class="layout">
-    <volet :class="{ active: showSidebar }" class="sidebar" />
-    <code-panel />
-    <b-btn class="menu" variant="danger" @click="showSidebar = !showSidebar">
-      I/O
-    </b-btn>
+    <volet />
+    <div class="main-wrapper">
+      <router-view />
+    </div>
   </div>
 </template>
 <script>
 import volet from '@/components/volet'
-import codePanel from '@/components/code-panel'
+
 export default {
   components: {
-    volet,
-    codePanel
-  },
-  data: function () {
-    return {
-      showSidebar: false
-    }
+    volet
   }
 }
 </script>
@@ -89,22 +82,11 @@ html {
       display: flex;
       align-items: stretch;
     }
-    .sidebar.active {
-      margin-left: -50%;
-    }
-    .sidebar{
-      transition: all 0.3s;
-      padding-top: 60px;
-    }
     .main-wrapper{
       transition: all 0.3s;
       width: 100%;
-    }
-    .menu{
-      position: absolute;
-      border-radius: 20px;
-      z-index: 11;
-      margin: 10px;
+      padding: 10px;
+      margin-left: 50px;
     }
   }
 }

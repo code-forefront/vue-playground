@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.js'
 import VueCodemirror from 'vue-codemirror'
 
 // language
@@ -36,5 +36,12 @@ import 'codemirror/addon/fold/markdown-fold.js'
 import 'codemirror/addon/fold/xml-fold.js'
 
 // more...
+
+// lib css
+import 'codemirror/lib/codemirror.css'
+// merge css
+import 'codemirror/addon/merge/merge.css'
+// theme css
+import 'codemirror/theme/base16-dark.css'
 
 Vue.use(VueCodemirror)

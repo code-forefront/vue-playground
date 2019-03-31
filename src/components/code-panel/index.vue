@@ -16,15 +16,13 @@
 </template>
 
 <script>
-import script1 from 'raw-loader!././examples/script1.tpl'
-import template1 from 'raw-loader!././examples/template1.tpl'
-import style1 from 'raw-loader!././examples/style1.tpl'
+import script1 from 'raw-loader!./examples/script1.tpl'
+import template1 from 'raw-loader!./examples/template1.tpl'
+import style1 from 'raw-loader!./examples/style1.tpl'
 import microstore from '@/microstore'
 
 export default {
-  components: {
-    codemirror: () => import('@/plugins/codemirror.js')
-  },
+  name: 'codePanel',
   data() {
     return {
       cmOptions: {
