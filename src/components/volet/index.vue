@@ -30,8 +30,12 @@ export default {
   },
   data: function () {
     return {
-      showSidebar: true,
-      codePanel: true
+      showSidebar: true
+    }
+  },
+  computed: {
+    codePanel: function(){
+      return this.$route.path === '/'
     }
   },
   methods: {
@@ -55,7 +59,6 @@ export default {
           path: '/'
         })
       }
-      this.codePanel = !this.codePanel
     }
   }
 }
