@@ -2,11 +2,11 @@
   <section class="code">
     <h1>Composant VueJS</h1>
     <h2>template</h2>
-      <codemirror :value="template" @input="commitTemplate" :options="cmOptions" />
+      <codemirror v-model="template" :options="cmOptions" />
     <h2>script</h2>
-      <codemirror :value="script" @input="commitScript" :options="cmOptions2" />
+      <codemirror v-model="script" :options="cmOptions2" />
     <h2>CSS</h2>
-      <codemirror :value="style" @input="commitStyle" :options="cmOptions3" />
+      <codemirror v-model="style" :options="cmOptions3" />
   </section>
 </template>
 
@@ -47,30 +47,29 @@ export default {
     }
   },
   computed: {
-    template: function() {
-      return this.$store.state.template
+    template: {
+      get() {
+        return this.$store.state.template
+      },
+      set(e) {
+        this.$store.commit('setTemplate', e)
+      }
     },
-    script: function() {
-      return this.$store.state.script
+    script: {
+      get() {
+        return this.$store.state.script
+      },
+      set(e) {
+        this.$store.commit('setScript', e)
+      }
     },
-    style: function() {
-      return this.$store.state.style
-    }
-  },
-  methods: {
-    /*restrictStyle(style) {
-      const regexp = /((\.|#)?[a-zA-Z-_]* *{)/g
-      const res = style.replace(regexp, '#user-styles' + ' ' + '$1')
-      return res
-    },*/
-    commitTemplate(e){
-      this.$store.commit('setTemplate', e)
-    },
-    commitScript(e){
-      this.$store.commit('setScript', e)
-    },
-    commitStyle(e){
-      this.$store.commit('setStyle', e)
+    style: {
+      get() {
+        return this.$store.state.style
+      },
+      set(e) {
+        this.$store.commit('setStyle', e)
+      }
     }
   }
 }
