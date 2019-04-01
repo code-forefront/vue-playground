@@ -33,7 +33,7 @@ export default {
     userDefinedEvents: {
       handler(val) {
         const listener = {}
-        _.each(this.userDefinedEvents, (evt) => {
+        _.each(val, (evt) => {
           listener[evt.value] = this.eventHandler(evt)
         })
         this.$emit('eventsEmitter', listener)
