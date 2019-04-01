@@ -9,23 +9,53 @@
       X
     </span>
     </b-btn>
+    <p>
+      <b-btn variant="success" @click="register">
+        <span v-if="codePanel">
+          Load
+        </span>
+        <span v-else>
+          Back
+        </span>
+      </b-btn>
+    </p>
   </div>
 </template>
 
 <script>
+import microstore from '@/microstore'
 export default {
   components: {
     userDefinedDataComp: () => import('./user-defined-data')
   },
   data: function () {
     return {
-      showSidebar: true
+      showSidebar: true,
+      codePanel: true
     }
   },
   methods: {
     getData(args) {
       this.finalEntries = args.entries
       this.eventListeners = args.events
+    },
+    register() {
+      if(this.codePanel){
+        let script
+        eval('script = ' + this.$store.state.script)
+        // on place le nouveau composant dans le store pour le récupérer ailleurs facilement
+        microstore.template = this.$store.state.template
+        microstore.script = script
+        microstore.style = this.$store.state.style
+        this.$router.push({
+          path: '/execution'
+        })
+      }else{
+        this.$router.push({
+          path: '/'
+        })
+      }
+      this.codePanel = !this.codePanel
     }
   }
 }
@@ -43,6 +73,8 @@ export default {
     position: fixed;
     transition: all 0.3s;
     padding-top: 60px;
+    padding-left: 10px;
+    padding-right: 10px;
     &.active{
       margin-left: -350px;
     }
@@ -59,9 +91,5 @@ export default {
     .user-inputs-container{
       display: none;
     }
-  }
-  .user-inputs-container{
-    padding-left: 10px;
-    padding-right: 10px;
   }
 </style>

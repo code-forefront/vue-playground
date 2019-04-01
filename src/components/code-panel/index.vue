@@ -7,18 +7,11 @@
       <codemirror v-model="script" :options="cmOptions2" />
     <h2>CSS</h2>
       <codemirror v-model="style" :options="cmOptions3" />
-    <p>
-      <button class="btn fourth" @click="register">
-        Load
-      </button>
-    </p>
   </section>
 </template>
 
 <script>
-import script1 from 'raw-loader!./examples/script1.tpl'
-import template1 from 'raw-loader!./examples/template1.tpl'
-import style1 from 'raw-loader!./examples/style1.tpl'
+
 import microstore from '@/microstore'
 
 export default {
@@ -51,9 +44,20 @@ export default {
       },
       editor1: null,
       registered: false,
-      template: template1,
-      script: script1,
-      style: style1
+      template: this.$store.state.template,
+      script: this.$store.state.script,
+      style: this.$store.state.style
+    }
+  },
+  watch: {
+    template: function() {
+      this.$store.commit('setTemplate', this.template)
+    },
+    script: function() {
+      this.$store.commit('setScript', this.script)
+    },
+    style: function() {
+      this.$store.commit('setStyle', this.restrictStyle(this.style))
     }
   },
   methods: {
@@ -61,18 +65,6 @@ export default {
       const regexp = /((\.|#)?[a-zA-Z-_]* *{)/g
       const res = style.replace(regexp, '#user-styles' + ' ' + '$1')
       return res
-    },
-    register() {
-      let script
-      const finalTemplate = this.template
-      eval('script = ' + this.script) // eslint-disable-line
-      // on place le nouveau composant dans le store pour le récupérer ailleurs facilement
-      microstore.template = finalTemplate
-      microstore.script = script
-      microstore.style = this.restrictStyle(this.style)
-      this.$router.push({
-        path: '/execution'
-      })
     }
   }
 }
