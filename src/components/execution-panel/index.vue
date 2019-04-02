@@ -11,12 +11,11 @@
 
 <script>
 import Vue from 'vue/dist/vue.js'
-import microstore from '@/microstore'
 
 export default {
   data: function () {
     return {
-      style: microstore.style
+      style: this.$store.state.style
     }
   },
   created() {
@@ -24,8 +23,10 @@ export default {
     // Ca fonctionne bien que ce ne soit pas prévu
     // Entre autre car cela injecte du code écrit pas le visiteur
     // Il ne faut donc pas utiliser ceci dans un projet en prod
-    const myComp = Object.assign(microstore.script, {
-      template: microstore.template
+    let script
+    eval('script = ' + this.$store.state.script)
+    const myComp = Object.assign(script, {
+      template: this.$store.state.template
     })
     Vue.component('my-comp', myComp)
     /* const events = ['click', 'mouseover'] */

@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import microstore from '@/microstore'
 export default {
   components: {
     userDefinedDataComp: () => import('./user-defined-data')
@@ -38,6 +37,11 @@ export default {
       return this.$route.path === '/'
     }
   },
+  watch:{
+    $route (to, from){
+        this.showSidebar = true;
+    }
+  },
   methods: {
     getData(args) {
       this.finalEntries = args.entries
@@ -45,19 +49,15 @@ export default {
     },
     register() {
       if(this.codePanel){
-        let script
-        eval('script = ' + this.$store.state.script)
-        // on place le nouveau composant dans le store pour le récupérer ailleurs facilement
-        microstore.template = this.$store.state.template
-        microstore.script = script
-        microstore.style = this.$store.state.style
         this.$router.push({
           path: '/execution'
         })
+        // this.showSidebar = true
       }else{
         this.$router.push({
           path: '/'
         })
+        // this.showSidebar = true
       }
     }
   }

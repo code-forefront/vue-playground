@@ -12,7 +12,6 @@
 
 <script>
 
-import microstore from '@/microstore'
 
 export default {
   name: 'codePanel',
