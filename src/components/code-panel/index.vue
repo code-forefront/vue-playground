@@ -7,11 +7,16 @@
       <codemirror v-model="script" :options="cmOptions2" />
     <h2>CSS</h2>
       <codemirror v-model="style" :options="cmOptions3" />
+      <p>
+      <b-btn variant="success" @click="saveDraft">
+        Save
+      </b-btn>
+    </p>
   </section>
 </template>
 
 <script>
-
+import axios from 'axios'
 
 export default {
   name: 'codePanel',
@@ -69,6 +74,24 @@ export default {
       set(e) {
         this.$store.commit('setStyle', e)
       }
+    }
+  },
+  methods: {
+    saveDraft() {
+      let draft
+      draft = {
+        ['template']: this.template,
+        ['script']: this.script,
+        ['style']: this.style,
+      }
+      axios({ method: "POST", "url": "http://localhost:3000/drafts", "data": draft, "headers": { "content-type": "application/json" } }).then((response) => {
+          let query = Object.assign({}, this.$route.query,  { id: response.data.id })
+          this.$router.push({ query: query })
+      }).catch(error => {
+        /* eslint-disable no-console */
+        console.log("can't find backend: "+error)
+        /* eslint-disable no-console */
+      });
     }
   }
 }

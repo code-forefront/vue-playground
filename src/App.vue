@@ -8,10 +8,27 @@
 </template>
 <script>
 import volet from '@/components/volet'
-
+import axios from 'axios'
 export default {
   components: {
     volet
+  },
+  async created() {
+    if(this.$route.query.id){
+      const id = this.$route.query.id;
+      try {
+        const draft = await axios.get('http://localhost:3000/drafts/'+id)
+        this.$store.commit('setTemplate', draft.data.template)
+        this.$store.commit('setScript', draft.data.script)
+        this.$store.commit('setStyle', draft.data.style)
+      } catch (error) {
+        /* eslint-disable no-console */
+        console.log("can't find backend: "+error)
+        /* eslint-disable no-console */
+      }
+      
+      
+    }
   }
 }
 </script>
