@@ -77,21 +77,22 @@ export default {
     }
   },
   methods: {
-    saveDraft() {
+    async saveDraft() {
       let draft
       draft = {
-        ['template']: this.template,
-        ['script']: this.script,
-        ['style']: this.style,
+        template: this.template,
+        script: this.script,
+        style: this.style,
       }
-      axios({ method: "POST", "url": "http://localhost:3000/drafts", "data": draft, "headers": { "content-type": "application/json" } }).then((response) => {
-          let query = Object.assign({}, this.$route.query,  { id: response.data.id })
-          this.$router.push({ query: query })
-      }).catch(error => {
+      try {
+        const response = await axios({ method: "POST", "url": "http://localhost:3000/drafts", "data": draft, "headers": { "content-type": "application/json" } })
+        let query = Object.assign({}, this.$route.query,  { id: response.data.id })
+        this.$router.push({ query: query })
+      } catch (error) {
         /* eslint-disable no-console */
-        console.log("can't find backend: "+error)
+        console.log(error)
         /* eslint-disable no-console */
-      });
+      }
     }
   }
 }
