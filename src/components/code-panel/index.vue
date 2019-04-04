@@ -85,7 +85,7 @@ export default {
         style: this.style,
       }
       try {
-        const response = await axios({ method: "POST", "url": "http://localhost:3000/drafts", "data": draft, "headers": { "content-type": "application/json" } })
+        const response = await axios({ method: "POST", "url": process.env.VUE_APP_API_URL+"/drafts", "data": draft, "headers": { "content-type": "application/json" } })
         let query = Object.assign({}, this.$route.query,  { id: response.data.id })
         this.$router.push({ query: query })
       } catch (error) {

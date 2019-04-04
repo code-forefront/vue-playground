@@ -17,7 +17,7 @@ export default {
     if(this.$route.query.id){
       const id = this.$route.query.id;
       try {
-        const draft = await axios.get('http://localhost:3000/drafts/'+id)
+        const draft = await axios.get(process.env.VUE_APP_API_URL+'/drafts/'+id)
         this.$store.commit('setTemplate', draft.data.template)
         this.$store.commit('setScript', draft.data.script)
         this.$store.commit('setStyle', draft.data.style)
@@ -26,8 +26,6 @@ export default {
         console.log("can't find backend: "+error)
         /* eslint-disable no-console */
       }
-      
-      
     }
   }
 }
