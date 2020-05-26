@@ -22,15 +22,10 @@ export default {
   },
   data: function () {
     return {
-      userData: { 'entries': {}, 'events': {} }
-    }
-  },
-  watch: {
-    userData: {
-      handler() {
-        this.$emit('dataEmitter', this.userData)
-      },
-      deep: true
+      userData: {
+        entries: {},
+        events: {}
+      }
     }
   },
   methods: {

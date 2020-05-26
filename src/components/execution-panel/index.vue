@@ -4,7 +4,7 @@
       {{ style }}
     </component>
     <b-card id="user-styles" border-variant="primary" header="Le rendu de votre composant" header-bg-variant="primary" header-text-variant="white">
-      <my-comp v-bind="this.$store.state.entries" v-on="this.$store.state.events" />
+      <my-comp v-bind="$store.state.entries" v-on="$store.state.events" />
     </b-card>
   </div>
 </template>

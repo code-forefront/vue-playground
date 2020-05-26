@@ -83,6 +83,7 @@ export default {
         template: this.template,
         script: this.script,
         style: this.style,
+        skeleton: this.$store.state.entries
       }
       try {
         const response = await axios({ method: "POST", "url": process.env.VUE_APP_API_URL+"/drafts", "data": draft, "headers": { "content-type": "application/json" } })

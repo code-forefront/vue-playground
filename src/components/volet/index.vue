@@ -1,6 +1,6 @@
 <template>
   <div :class="{ active: showSidebar }" class="volet sidebar">
-    <user-defined-data-comp @dataEmitter="getData" />
+    <user-defined-data-comp />
     <b-btn class="menu" variant="danger" @click="showSidebar = !showSidebar">
     <span v-if="showSidebar">
       ->
@@ -43,10 +43,6 @@ export default {
     }
   },
   methods: {
-    getData(args) {
-      this.finalEntries = args.entries
-      this.eventListeners = args.events
-    },
     register() {
       if(this.codePanel){
         this.$router.push({
